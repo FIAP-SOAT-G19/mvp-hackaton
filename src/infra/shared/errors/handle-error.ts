@@ -1,4 +1,4 @@
-import { ClientNotFoundError, InvalidParamError, MissingParamError, ProductNotFoundError, SchemaValidationError } from '.'
+import { DoctorNotFoundError, InvalidParamError, MissingParamError, SchemaValidationError } from '.'
 import { badRequest, notFound, serverError } from '../helpers/http.helper'
 import { HttpResponse } from '../types/http.types'
 
@@ -7,7 +7,7 @@ export const handleError = (error: any): HttpResponse => {
     return badRequest(error)
   }
 
-  if (error instanceof ClientNotFoundError || error instanceof ProductNotFoundError) {
+  if (error instanceof DoctorNotFoundError) {
     return notFound(error)
   }
   return serverError(error)

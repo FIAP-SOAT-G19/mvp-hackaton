@@ -1,7 +1,5 @@
 const { PrismaClient } = require('@prisma/client')
-const productsGenerate = require('./products')
-const clientsGenerate = require('./clients')
-const employeesGenerate = require('./employees')
+const doctorsGenerate = require('./doctors')
 const crypto = require('crypto')
 
 const prismaClient = new PrismaClient()
@@ -29,9 +27,7 @@ const seedGenerate = async (seedName, dataGeneratorFunction, createSeederFunctio
 }
 
 const main = async () => {
-  await seedGenerate('products', productsGenerate, data => prismaClient.product.create({ data }))
-  await seedGenerate('clients', clientsGenerate, data => prismaClient.client.create({ data }))
-  await seedGenerate('employees', employeesGenerate, data => prismaClient.employee.create({ data }))
+  await seedGenerate('doctors', doctorsGenerate, data => prismaClient.doctor.create({ data }))
 }
 
 main()
