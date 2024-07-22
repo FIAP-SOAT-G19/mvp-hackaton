@@ -5,7 +5,7 @@
     "description": "API desenvolvida durante o hackaton",
     "version": "1.0.0",
     "contact": {
-       "email": "tech-challenge@gmail.com"
+      "email": "tech-challenge@gmail.com"
     }
   },
   "servers": [
@@ -66,38 +66,40 @@
         }
       }
     },
-    "/client/auth": {
+    "/doctor/auth": {
       "post": {
         "tags": [
-          "Clients"
+          "Doctor"
         ],
-        "operationId": "post-auth",
-        "description": "Rota de autenticação de Clientes",
-        "summary": "Autentica um cliente",
+        "operationId": "auth-doctor",
+        "description": "Rota de Autenticação do Médico na API",
+        "summary": "Autentica o Médico na API",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "email": {
+                  "crm": {
                     "type": "string",
-                    "example": "jose.silva@gmail.com",
-                    "description": "Este é o email do cliente"
+                    "example": "000000/SP"
                   },
                   "password": {
                     "type": "string",
-                    "example": "J$2023",
-                    "description": "Esta é a senha do cliente"
+                    "example": "123456"
                   }
-                }
+                },
+                "required": [
+                  "crm",
+                  "password"
+                ]
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Sucesso",
+            "description": "Médico autenticado com sucesso",
             "content": {
               "application/json": {
                 "schema": {
@@ -105,18 +107,15 @@
                   "properties": {
                     "name": {
                       "type": "string",
-                      "example": "José da Silva",
-                      "description": "Este é o nome do cliente"
+                      "example": "João da Silva"
                     },
-                    "email": {
+                    "crm": {
                       "type": "string",
-                      "example": "jose.silva@gmail.com",
-                      "description": "Este é o email do cliente"
+                      "example": "000000/UF"
                     },
-                    "cpf": {
+                    "token": {
                       "type": "string",
-                      "example": "32125869777",
-                      "description": "Este é o CPF do cliente"
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
                     }
                   }
                 }
@@ -124,21 +123,15 @@
             }
           },
           "400": {
-            "description": "Error",
+            "description": "Bad Request Error",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "status": {
                       "type": "string",
-                      "example": "InvalidParamError",
-                      "description": ""
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Invalid Param: name",
-                      "description": ""
+                      "example": "Missing param: crm or password"
                     }
                   }
                 }
@@ -152,10 +145,318 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "error": {
+                    "status": {
                       "type": "string",
-                      "example": "Internal Server Error",
-                      "description": ""
+                      "example": "Internal Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/doctor": {
+      "post": {
+        "tags": [
+          "Doctor"
+        ],
+        "operationId": "create-doctor",
+        "description": "Rota de Cadastro do Médico na API",
+        "summary": "Cadastra o Médico na API",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "João da Silva"
+                  },
+                  "crm": {
+                    "type": "string",
+                    "example": "000000/SP"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "123456"
+                  }
+                },
+                "required": [
+                  "name",
+                  "crm",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Médico cadastrado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "doctorId": {
+                      "type": "string",
+                      "example": "5ebcea6f-2391-46aa-a5bc-ab5d98527f13"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Missing param: crm"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Internal Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/doctors": {
+      "get": {
+        "tags": [
+          "Doctor"
+        ],
+        "operationId": "get-all-doctors",
+        "description": "Rota de busca de todos os médicos",
+        "summary": "Retorna todos os médicos da API",
+        "responses": {
+          "200": {
+            "description": "Médicos retornados com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "5ebcea6f-2391-46aa-a5bc-ab5d98527f13"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "João da Silva"
+                      },
+                      "crm": {
+                        "type": "string",
+                        "example": "000000/UF"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Doctor not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Doctor not found error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Internal Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/doctor/{id}": {
+      "patch": {
+        "tags": [
+          "Doctor"
+        ],
+        "operationId": "update-doctor",
+        "description": "Rota de atualização de médicos",
+        "summary": "Atualiza dados dos médicos da API",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "5ebcea6f-2391-46aa-a5bc-ab5d98527f13"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "João da Silva"
+                  },
+                  "crm": {
+                    "type": "string",
+                    "example": "000000/UF"
+                  }
+                },
+                "required": [
+                  "name",
+                  "crm"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Médico atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "doctorId": {
+                      "type": "string",
+                      "example": "5ebcea6f-2391-46aa-a5bc-ab5d98527f13"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Doctor not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Doctor not found error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Internal Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Doctor"
+        ],
+        "operationId": "delete-doctor",
+        "description": "Rota de exclusão de médicos",
+        "summary": "Exclui um registro de médicos da API",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": ""
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Médicos deletado com sucesso"
+          },
+          "404": {
+            "description": "Doctor not found error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Doctor not found error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Internal Server Error"
                     }
                   }
                 }
@@ -276,31 +577,31 @@
                     "type": "object",
                     "properties": {
                       "id": {
-                      "type": "string",
-                      "example": "5ebcea6f-2391-46aa-a5bc-ab5d98527f13"
-                    },
-                    "startDate": {
-                      "type": "string",
-                      "format": "date-time",
-                      "example": "2024-07-20T09:00:00Z"
-                    },
-                    "endDate": {
-                      "type": "string",
-                      "format": "date-time",
-                      "example": "2024-07-20T09:50:00"
-                    },
-                    "doctorId": {
-                      "type": "string",
-                      "example": "66bcea6f-2391-46aa-a5bc-ab5d98527f13"
-                    },
-                    "doctorName": {
-                      "type": "string",
-                      "example": "José da Silva"
-                    },
-                    "doctorCrm": {
-                      "type": "string",
-                      "example": "123456"
-                    }
+                        "type": "string",
+                        "example": "5ebcea6f-2391-46aa-a5bc-ab5d98527f13"
+                      },
+                      "startDate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-07-20T09:00:00Z"
+                      },
+                      "endDate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-07-20T09:50:00"
+                      },
+                      "doctorId": {
+                        "type": "string",
+                        "example": "66bcea6f-2391-46aa-a5bc-ab5d98527f13"
+                      },
+                      "doctorName": {
+                        "type": "string",
+                        "example": "José da Silva"
+                      },
+                      "doctorCrm": {
+                        "type": "string",
+                        "example": "123456"
+                      }
                     }
                   }
                 }
