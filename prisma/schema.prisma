@@ -16,6 +16,8 @@ model Doctor {
   updatedAt DateTime? @updatedAt
   deletedAt DateTime?
 
+  schedules MedicalSchedule[]
+
   @@map("doctors")
 }
 
@@ -25,4 +27,20 @@ model SeedersHistory {
   executedAt DateTime
 
   @@map("seeders_histories")
+}
+
+model MedicalSchedule {
+  id           String          @id
+  startDate    DateTime
+  endDate      DateTime
+  doctorId     String
+  doctorName   String
+  doctorCrm    String
+  createdAt    DateTime
+  updatedAt    DateTime?       @updatedAt
+  deletedAt    DateTime?
+
+  doctor       Doctor          @relation(fields: [doctorId], references: [id])
+
+  @@map("medical_schedules")
 }

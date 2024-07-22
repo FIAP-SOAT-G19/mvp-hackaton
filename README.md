@@ -1,7 +1,7 @@
-# 💬 Tech Challenge
+# 💬 Health&Med Hackaton
 
 ## ✳️ Sobre
-O **Tech Challenge** é um projeto de um sistema de autoatendimento de fast food, que é composto por uma série de dispositivos e interfaces que permitem aos clientes selecionar e fazer pedidos sem precisar interagir com um atendente.
+O **Health&Med** é uma startup inovadora no setor de saúde, está desenvolvendo um novo sistema que irá revolucionar a Telemedicina no país. O hackaton desenvolverá um projeto de um sistema robusto, escalável e seguro que permita o gerenciamento eficiente desses agendamentos e consultas.
 
 ---
 
@@ -19,7 +19,7 @@ O **Tech Challenge** é um projeto de um sistema de autoatendimento de fast food
 - Clone o projeto
 
   ```bash
-  git clone https://github.com/FIAP-SOAT-G19/tech-challenge.git
+  git clone https://github.com/FIAP-SOAT-G19/mvp-hackaton.git
   ````
 ---
 
@@ -31,18 +31,6 @@ Existe o arquivo `.env.example` com todas as variáveis utilizadas para rodar o 
 ![Arquitetura do Projeto](./assets/images/architecture.jpg)
 
 ## ▶️ Executando o projeto
-- Execute os seguintes comandos:
-  ```bash
-    kubectl apply -f k8s/db-deployment.yaml
-    kubectl apply -f k8s/api-deployment.yaml
-    kubectl apply -f k8s/metrics.yaml
-  ```
-
-- Utilize os comandos abaixo para encaminhar as conexões das portas locais para a portas dos pod's Kubernetes (o segundo comando é opcional)
-  ```bash
-    kubectl port-forward service/api-svc 3000:3000 &
-    kubectl port-forward service/database-svc 5432:5432 &
-  ```
 
 - O Backend iniciará em [http://localhost:3000](http://localhost:3000)
 
@@ -50,11 +38,6 @@ Existe o arquivo `.env.example` com todas as variáveis utilizadas para rodar o 
 
 ## 🧩 Swagger
 É possível acessar a documentação da API pelo [Swagger da API](http://localhost:3000/api-docs) e simular os endpoints
-
----
-
-## ▶️ Vídeo do Projeto
-Link do vídeo no [Youtube](https://youtu.be/TDvxi906vco?si=yY3aulSxq2tg5fiC)
 
 ---
 
