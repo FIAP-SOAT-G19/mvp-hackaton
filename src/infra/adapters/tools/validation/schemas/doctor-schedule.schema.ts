@@ -7,5 +7,6 @@ const doctorScheduleSchema = Joi.object({
 })
 
 const getScheduleSchema = Joi.string().required()
+const deleteScheduleSchema = Joi.string().required()
 
-export { doctorScheduleSchema, getScheduleSchema }
+export { doctorScheduleSchema, getScheduleSchema, deleteScheduleSchema }

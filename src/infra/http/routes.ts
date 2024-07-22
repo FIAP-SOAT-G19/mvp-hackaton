@@ -7,6 +7,9 @@ import { makeUpdateClientController } from '../factories/controllers/doctor/upda
 import { makeCreateDoctorController } from '../factories/controllers/doctor/create-doctor-controller.factory'
 import { makeCreateDoctorScheduleController } from '../factories/controllers/doctor-schedule/create-doctor-schedule-controller.factory'
 import { makeGetDoctorScheduleController } from '../factories/controllers/doctor-schedule/get-doctor-schedule-controller.factory'
+import { makeGetAllDoctorScheduleController } from '../factories/controllers/doctor-schedule/get-all-doctor-schedule-controller.factory'
+import { makeUpdateDoctorScheduleController } from '../factories/controllers/doctor-schedule/update-doctor-schedule-controller.factory'
+import { makeDeleteDoctorScheduleController } from '../factories/controllers/doctor-schedule/delete-doctor-schedule-controller.factory'
 
 const router = Router()
 // Doctor
@@ -17,10 +20,10 @@ router.get('/doctors', expressAdapter(makeGetAllClientsController()))
 router.delete('/doctor/:id', expressAdapter(makeDeleteClientController())) */
 
 // Doctor Schedule
-// router.get('/doctors/schedules', expressAdapter(makeGetAllDoctorScheduleController()))
+router.get('/doctor/schedules', expressAdapter(makeGetAllDoctorScheduleController()))
 router.get('/doctor/schedules/:scheduleId', expressAdapter(makeGetDoctorScheduleController()))
 router.post('/doctor/schedules', expressAdapter(makeCreateDoctorScheduleController()))
-// router.patch('/doctor/schedules/:id', expressAdapter(makeUpdateDoctorScheduleController()))
-// router.delete('/doctor/schedules/:id', expressAdapter(makeDeleteDoctorScheduleController()))
+router.patch('/doctor/schedules/:scheduleId', expressAdapter(makeUpdateDoctorScheduleController()))
+router.delete('/doctor/schedules/:scheduleId', expressAdapter(makeDeleteDoctorScheduleController()))
 
 export { router }
