@@ -15,6 +15,7 @@ export type UpdateDoctorScheduleInput = Pick<DoctorSchedule, 'id' | 'startDate' 
 
 export interface IDoctorScheduleRepository {
   getByCrm: (doctorCrm: string) => Promise<DoctorSchedule[] | null>
+  getById: (scheduleId: string) => Promise<DoctorSchedule | null>
   getAll: () => Promise<DoctorSchedule[] | null>
   save: (input: SaveDoctorScheduleInput) => Promise<string>
   update: (input: UpdateDoctorScheduleInput) => Promise<string>

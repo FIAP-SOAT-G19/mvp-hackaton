@@ -1,6 +1,7 @@
 export default {
   SCHEMAS: {
     DOCTOR: 'doctorSchema',
-    DOCTOR_SCHEDULE: 'doctorScheduleSchema'
+    DOCTOR_SCHEDULE: 'doctorScheduleSchema',
+    GET_DOCTOR_SCHEDULE: 'getScheduleSchema'
   }
 }

@@ -326,7 +326,7 @@
         }
       }
     },
-    "/doctor/schedules/{schedulesId}": {
+    "/doctor/schedules/{scheduleId}": {
       "get": {
         "tags": [
           "Schedules"

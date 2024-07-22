@@ -35,3 +35,10 @@ export class DoctorNotFoundError extends Error {
     super('Doctor not found error')
   }
 }
+
+export class ScheduleNotFoundError extends Error {
+  statusCode = 404
+  constructor() {
+    super('Schedule not found error')
+  }
+}

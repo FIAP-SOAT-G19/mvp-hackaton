@@ -12,6 +12,27 @@ export class DoctorScheduleRepository implements IDoctorScheduleRepository {
     return doctorsSchedule ?? null
   }
 
+  async getById(scheduleId: string): Promise<DoctorSchedule | null> {
+    const schedule = await prismaClient.medicalSchedule.findUnique({
+      where: {
+        id: scheduleId
+      }
+    })
+    if (!schedule) return null
+
+    return {
+      id: schedule.id,
+      startDate: schedule.startDate,
+      endDate: schedule.endDate,
+      doctorId: schedule.doctorId,
+      doctorName: schedule.doctorName,
+      doctorCrm: schedule.doctorCrm,
+      createdAt: schedule.createdAt,
+      updatedAt: schedule.updatedAt,
+      deletedAt: schedule.deletedAt
+    }
+  }
+
   async save(input: SaveDoctorScheduleInput): Promise<string> {
     const doctorSchedule = await prismaClient.medicalSchedule.create({
       data: {
