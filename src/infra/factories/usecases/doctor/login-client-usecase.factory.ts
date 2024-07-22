@@ -1,12 +1,10 @@
-/* import { ILoginClientUseCase } from '@/application/interfaces/usecases/doctor/login-client.interface'
-import { LoginClientUseCase } from '@/application/usecases/doctor/login-client.usecase'
-import { LoginClientGateway } from '@/infra/adapters/gateways/client/login-client-gateway'
+import { ILoginDoctorUseCase } from '@/application/interfaces'
+import { LoginDoctorUseCase } from '@/application/usecases/doctor/login-doctor.usecase'
 import { BcryptAdapter } from '@/infra/adapters/tools/encrypt/bcrypt.adapter'
-import { ClientRepository } from '@/infra/database/repositories/client.repository'
+import { DoctorRepository } from '@/infra/database/repositories/doctor.repository'
 
-export const makeLoginClientUseCase = (): ILoginClientUseCase => {
-  const gateway = new LoginClientGateway(new ClientRepository())
+export const makeLoginDoctorUseCase = (): ILoginDoctorUseCase => {
+  const repository = new DoctorRepository()
   const encrypt = new BcryptAdapter()
-  return new LoginClientUseCase(gateway, encrypt)
+  return new LoginDoctorUseCase(repository, encrypt)
 }
- */
