@@ -1,38 +1,38 @@
-import { IDeleteClientUseCase } from '@/application/interfaces/usecases/doctor/delete-client.interface'
+import { IDeleteDoctorUseCase } from '@/application/interfaces'
 import { HttpRequest, serverError } from '@/infra/shared'
-import { DeleteClientController } from './delete-client.controller'
 import { mock } from 'jest-mock-extended'
+import { DeleteDoctorController } from './delete-doctor.controller'
 
-const deleteClientUseCase = mock<IDeleteClientUseCase>()
+const deleteDoctorUseCase = mock<IDeleteDoctorUseCase>()
 
-describe('DeleteClientController', () => {
-  let sut: DeleteClientController
+describe('DeleteDoctorController', () => {
+  let sut: DeleteDoctorController
   let input: HttpRequest
 
   beforeEach(() => {
-    sut = new DeleteClientController(deleteClientUseCase)
+    sut = new DeleteDoctorController(deleteDoctorUseCase)
     input = {
       params: {
-        id: 'anyClientId'
+        id: 'anyDoctorId'
       }
     }
   })
 
-  test('should call DeleteClientUseCase once and with correct values', async () => {
+  test('should call deleteDoctorUseCase once and with correct values', async () => {
     await sut.execute(input)
-    expect(deleteClientUseCase.execute).toHaveBeenCalledWith(input.params)
-    expect(deleteClientUseCase.execute).toHaveBeenCalledTimes(1)
+    expect(deleteDoctorUseCase.execute).toHaveBeenCalledWith(input.params)
+    expect(deleteDoctorUseCase.execute).toHaveBeenCalledTimes(1)
   })
 
   test('should return a clientId on success', async () => {
-    deleteClientUseCase.execute.mockResolvedValueOnce()
+    deleteDoctorUseCase.execute.mockResolvedValueOnce()
     const output = await sut.execute(input)
     expect(output).toEqual({ statusCode: 200, body: {} })
   })
 
-  test('should return an error if DeleteClientUseCase throws', async () => {
+  test('should return an error if deleteDoctorUseCase throws', async () => {
     const error = new Error('Internal server error')
-    deleteClientUseCase.execute.mockRejectedValueOnce(error)
+    deleteDoctorUseCase.execute.mockRejectedValueOnce(error)
     const output = await sut.execute(input)
     expect(output).toEqual(serverError(error))
   })
