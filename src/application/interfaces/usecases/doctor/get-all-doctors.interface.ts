@@ -1,8 +1,8 @@
-export interface IGetAllDoctorssUseCase {
-  execute: () => Promise<IGetAllDoctorssUseCase.Output[] | null>
+export interface IGetAllDoctorsUseCase {
+  execute: () => Promise<IGetAllDoctorsUseCase.Output[] | null>
 }
 
-export namespace IGetAllDoctorssUseCase {
+export namespace IGetAllDoctorsUseCase {
   export type Output = {
     id: string
     name: string
