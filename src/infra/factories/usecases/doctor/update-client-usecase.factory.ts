@@ -1,12 +1,12 @@
-/* import { UpdateClientUseCase } from '@/application/usecases/doctor/update-client.usecase'
-import { UpdateClientGateway } from '@/infra/adapters/gateways/client/update-client.gateway'
+import { IUpdateDoctorUseCase } from '@/application/interfaces'
+import { UpdateDoctorUseCase } from '@/application/usecases/doctor/update-doctor.usecase'
 import { JoiValidatorSchemaAdapter } from '@/infra/adapters/tools/validation/joi-validator.adapter'
-import { ClientRepository } from '@/infra/database/repositories/client.repository'
+import { DoctorRepository } from '@/infra/database/repositories/doctor.repository'
 
-export const makeUpdateClientUseCase = (): UpdateClientUseCase => {
+export const makeUpdateDoctorUseCase = (): IUpdateDoctorUseCase => {
   const schemaValidator = new JoiValidatorSchemaAdapter()
-  const gateway = new UpdateClientGateway(new ClientRepository())
+  const repository = new DoctorRepository()
 
-  return new UpdateClientUseCase(schemaValidator, gateway)
+  return new UpdateDoctorUseCase(schemaValidator, repository)
 }
- */
+
