@@ -73,11 +73,11 @@ metadata:
   name: api-secrets
 type: Opaque
 stringData:
-  postgres-db: mvp-hackaton
+  postgres-db: mvp_hackaton
   postgres-user: postgres
   postgres-password: postgres
-  postgres-host: mvp-hackaton.czg2ea2yu0rz.us-east-1.rds.amazonaws.com
-  database-url: postgresql://postgres:postgres@mvp-hackaton.czg2ea2yu0rz.us-east-1.rds.amazonaws.com:5432/mvp-hackaton?schema=public
+  postgres-host: mvp-hackaton.c32kogqu0ihz.us-east-1.rds.amazonaws.com
+  database-url: postgresql://postgres:postgres@mvp-hackaton.c32kogqu0ihz.us-east-1.rds.amazonaws.com:5432/mvp_hackaton?schema=public
 ---
 apiVersion: v1
 kind: Service
